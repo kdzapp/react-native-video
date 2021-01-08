@@ -70,7 +70,9 @@ RCT_EXPORT_VIEW_PROPERTY(onPlaybackResume, RCTDirectEventBlock);
 RCT_EXPORT_VIEW_PROPERTY(onPlaybackRateChange, RCTDirectEventBlock);
 RCT_EXPORT_VIEW_PROPERTY(onVideoExternalPlaybackChange, RCTDirectEventBlock);
 RCT_EXPORT_VIEW_PROPERTY(onGetLicense, RCTDirectEventBlock);
-RCT_EXPORT_METHOD(dealloc, reactTag:(nonnull NSNumber *)reactTag){
+RCT_REMAP_METHOD(dealloc,
+                 reactTag:(nonnull NSNumber *)reactTag)
+{
     [self.bridge.uiManager prependUIBlock:^(__unused RCTUIManager *uiManager, NSDictionary<NSNumber *, RCTVideo *> *viewRegistry) {
         RCTVideo *view = viewRegistry[reactTag];
         if (![view isKindOfClass:[RCTVideo class]]) {
