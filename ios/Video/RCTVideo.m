@@ -223,6 +223,17 @@ static int const RCTVideoUnset = -1;
   [self removePlayerLayer];
 }
 
+- (void)unload
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [self removePlayerItemObservers];
+    [_player removeObserver:self forKeyPath:playbackRate context:nil];
+    [_player removeObserver:self forKeyPath:externalPlaybackActive context: nil];
+    _player = nil;
+    [_playerLayer.player pause];
+    [self removePlayerLayer];
+}
+
 #pragma mark - App lifecycle handlers
 
 - (void)applicationWillResignActive:(NSNotification *)notification

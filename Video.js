@@ -76,7 +76,7 @@ export default class Video extends Component {
   };
 
   dealloc = () => {
-    return NativeModules.VideoManager.dealloc();
+    return NativeModules.VideoManager.unload();
   }
 
   save = async (options?) => {

@@ -70,7 +70,7 @@ RCT_EXPORT_VIEW_PROPERTY(onPlaybackResume, RCTDirectEventBlock);
 RCT_EXPORT_VIEW_PROPERTY(onPlaybackRateChange, RCTDirectEventBlock);
 RCT_EXPORT_VIEW_PROPERTY(onVideoExternalPlaybackChange, RCTDirectEventBlock);
 RCT_EXPORT_VIEW_PROPERTY(onGetLicense, RCTDirectEventBlock);
-RCT_REMAP_METHOD(dealloc,
+RCT_REMAP_METHOD(unload,
                  reactTag:(nonnull NSNumber *)reactTag)
 {
     [self.bridge.uiManager prependUIBlock:^(__unused RCTUIManager *uiManager, NSDictionary<NSNumber *, RCTVideo *> *viewRegistry) {
@@ -78,7 +78,7 @@ RCT_REMAP_METHOD(dealloc,
         if (![view isKindOfClass:[RCTVideo class]]) {
             RCTLogError(@"Invalid view returned from registry, expecting RCTVideo, got: %@", view);
         } else {
-            [view dealloc];
+            [view unload];
         }
     }];
 };
