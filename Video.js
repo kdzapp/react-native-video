@@ -75,8 +75,8 @@ export default class Video extends Component {
     this.setNativeProps({ fullscreen: false });
   };
 
-  dealloc = () => {
-    return NativeModules.VideoManager.unload();
+  unload = () => {
+    return NativeModules.VideoManager.unload(findNodeHandle(this._root));
   }
 
   save = async (options?) => {
