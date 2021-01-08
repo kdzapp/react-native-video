@@ -219,7 +219,7 @@ static int const RCTVideoUnset = -1;
   [_player removeObserver:self forKeyPath:playbackRate context:nil];
   [_player removeObserver:self forKeyPath:externalPlaybackActive context: nil];
   _player = nil;
-  [_playerLayer.player pause]
+  [_playerLayer.player pause];
   [self removePlayerLayer];
 }
 
@@ -1627,7 +1627,7 @@ static int const RCTVideoUnset = -1;
   [[NSNotificationCenter defaultCenter] removeObserver:self];
 	
   _player = nil;
-  [_playerLayer.player pause]
+  [_playerLayer.player pause];
   [self removePlayerLayer];
 
   [super removeFromSuperview];
