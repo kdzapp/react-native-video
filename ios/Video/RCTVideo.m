@@ -218,8 +218,9 @@ static int const RCTVideoUnset = -1;
   [self removePlayerItemObservers];
   [_player removeObserver:self forKeyPath:playbackRate context:nil];
   [_player removeObserver:self forKeyPath:externalPlaybackActive context: nil];
-  [self removePlayerLayer];
   _player = nil;
+  [_playerLayer.player pause]
+  [self removePlayerLayer];
 }
 
 #pragma mark - App lifecycle handlers
@@ -360,8 +361,10 @@ static int const RCTVideoUnset = -1;
   _source = source;
   [self removePlayerTimeObserver];
   [self removePlayerItemObservers];
-  [self removePlayerLayer];
+  
   _player = nil;
+  [self removePlayerLayer];
+  
 
   dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t) 0), dispatch_get_main_queue(), ^{
     
@@ -1466,9 +1469,10 @@ static int const RCTVideoUnset = -1;
 
 - (void)removePlayerLayer
 {
-  if (_loadingRequest != nil) {
+  // Maybe this blocked it since it was still loading
+  /*if (_loadingRequest != nil) {
     [_loadingRequest finishLoading];
-  }
+  }*/
   _requestingCertificate = NO;
   _requestingCertificateErrored = NO;
   [_playerLayer removeFromSuperlayer];
@@ -1622,9 +1626,10 @@ static int const RCTVideoUnset = -1;
   _eventDispatcher = nil;
   [[NSNotificationCenter defaultCenter] removeObserver:self];
 	
-  [self removePlayerLayer];
   _player = nil;
-  
+  [_playerLayer.player pause]
+  [self removePlayerLayer];
+
   [super removeFromSuperview];
 }
 
